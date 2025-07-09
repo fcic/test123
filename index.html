@@ -27,15 +27,34 @@
         </button>
     </div>
 
-    <!-- 设置按钮保留在右上角，并缩小尺寸 -->
+    <!-- QR码按钮保留在右上角，并缩小尺寸 -->
     <div class="fixed top-4 right-4 z-10">
-        <!-- onclick="toggleSettings(event)" -->
-        <button  class="bg-[#222] hover:bg-[#333] border border-[#333] hover:border-white rounded-lg px-3 py-1.5 transition-colors" aria-label="打开设置">
+        <button onclick="toggleQRCode()" class="bg-[#222] hover:bg-[#333] border border-[#333] hover:border-white rounded-lg px-3 py-1.5 transition-colors" aria-label="显示二维码">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                <rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="3" y="14" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="5" y="5" width="3" height="3" rx="0.5" stroke-width="1.5"/>
+                <rect x="16" y="5" width="3" height="3" rx="0.5" stroke-width="1.5"/>
+                <rect x="5" y="16" width="3" height="3" rx="0.5" stroke-width="1.5"/>
+                <rect x="14" y="14" width="7" height="7" rx="1" stroke-width="2"/>
+                <rect x="16" y="16" width="3" height="3" rx="0.5" stroke-width="1.5"/>
             </svg>
         </button>
+    </div>
+    
+    <!-- QR码面板 -->
+    <div id="qrPanel" class="fixed top-4 right-4 bg-[#111] border border-[#333] rounded-lg p-4 z-40 transform translate-x-full transition-all duration-300 ease-in-out opacity-0 pointer-events-none" style="margin-top: 60px;">
+        <div class="text-center">
+            <h3 class="text-lg font-bold gradient-text mb-3">扫码访问</h3>
+            <div class="bg-white p-3 rounded-lg inline-block">
+                <div id="qrcode" class="w-32 h-32 flex items-center justify-center">
+                    <!-- QR code will be generated here -->
+                </div>
+            </div>
+            <p class="text-sm text-gray-400 mt-2">tv.fcic.cc</p>
+        </div>
     </div>
     
     <!-- 历史记录面板 - 标题居中 -->
@@ -408,5 +427,78 @@
 
     <!-- 添加弹窗和URL搜索参数处理脚本 -->
     <script src="js/index-page.js"></script>
+
+    <!-- QR码相关脚本 -->
+    <script>
+        // QR码生成函数
+        function generateQRCode(text, size = 128) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+            
+            // 使用简单的方法生成QR码图片URL
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}`;
+            
+            const img = document.createElement('img');
+            img.src = qrUrl;
+            img.alt = 'QR Code';
+            img.className = 'w-full h-full object-contain';
+            
+            return img;
+        }
+
+        // 切换QR码面板显示/隐藏
+        function toggleQRCode() {
+            const qrPanel = document.getElementById('qrPanel');
+            const qrCodeContainer = document.getElementById('qrcode');
+            
+            // 检查当前状态
+            const isVisible = qrPanel.classList.contains('qr-panel-visible');
+            
+            if (isVisible) {
+                // 隐藏面板
+                qrPanel.classList.remove('qr-panel-visible');
+                qrPanel.style.transform = 'translateX(100%)';
+                qrPanel.style.opacity = '0';
+                qrPanel.style.pointerEvents = 'none';
+            } else {
+                // 显示面板
+                qrPanel.classList.add('qr-panel-visible');
+                qrPanel.style.transform = 'translateX(0)';
+                qrPanel.style.opacity = '1';
+                qrPanel.style.pointerEvents = 'auto';
+                
+                // 生成QR码
+                if (!qrCodeContainer.querySelector('img')) {
+                    const qrCode = generateQRCode('https://tv.fcic.cc', 128);
+                    qrCodeContainer.innerHTML = '';
+                    qrCodeContainer.appendChild(qrCode);
+                }
+            }
+        }
+
+        // 点击外部关闭QR码面板
+        document.addEventListener('click', function(e) {
+            const qrPanel = document.getElementById('qrPanel');
+            const qrButton = e.target.closest('[aria-label="显示二维码"]');
+            
+            if (!qrButton && !qrPanel.contains(e.target) && qrPanel.classList.contains('qr-panel-visible')) {
+                qrPanel.classList.remove('qr-panel-visible');
+                qrPanel.style.transform = 'translateX(100%)';
+                qrPanel.style.opacity = '0';
+                qrPanel.style.pointerEvents = 'none';
+            }
+        });
+
+        // 初始化QR码面板状态
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrPanel = document.getElementById('qrPanel');
+            // 确保初始状态正确
+            qrPanel.style.transform = 'translateX(100%)';
+            qrPanel.style.opacity = '0';
+            qrPanel.style.pointerEvents = 'none';
+        });
+    </script>
 </body>
 </html>
