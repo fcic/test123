@@ -39,10 +39,10 @@ const API_SITES = {
         api: 'https://tyyszy.com/api.php/provide/vod',
         name: '天涯资源',
     },
-    // xiaomaomi: {
-    //     api: 'https://zy.xiaomaomi.cc/api.php/provide/vod',
-    //     name: '小猫咪资源',
-    // },
+    xiaomaomi: {
+        api: 'https://zy.xiaomaomi.cc/api.php/provide/vod',
+        name: '小猫咪资源',
+    },
     ffzy: {
         api: 'http://ffzy5.tv/api.php/provide/vod',
         name: '非凡影视',
@@ -110,19 +110,77 @@ const API_SITES = {
         api: 'https://ikunzyapi.com/api.php/provide/vod',
         name: 'iKun资源'
     },
-    testSource: {
-        api: 'https://www.example.com/api.php/provide/vod',
-        name: '空内容测试源',
-        adult: true
-    },
-    // 下面是一些成人内容的API源，默认隐藏，使用本项目浏览黄色内容违背项目初衷
-    // 互联网上传播的色情内容将人彻底客体化、工具化，是性别解放和人类平等道路上的巨大障碍。
-    // 这些黄色影片是资本主义父权制压迫的最恶毒体现，它将暴力和屈辱商品化，践踏人的尊严，对受害者造成无法弥愈的伤害，并毒害社会关系。
-    // 资本为了利润，不惜将最卑劣的剥削（包括对受害者和表演者的剥削）和暴力商品化，
-    // 把性别剥削塑造成“性享受”麻痹观众的意识，转移我们对现实生活中矛盾和压迫的注意力。
-    // 这些影片和背后的产业已经使数百万男女“下海”，出卖自己的身体，甚至以此为生计。
-    // 而作为观众无辜吗？毫无疑问，他们促成了黄色产业链的再生产。
-    // 我们提供此警告，是希望您能认清这些内容的本质——它们是压迫和奴役的工具，而非娱乐。
+
+
+    lbzy: {
+        api: 'https://lbapi9.com/api.php/provide/vod',
+        name: '乐播资源',
+    },                                               // :contentReference[oaicite:0]{index=0}
+    shayu: {
+        api: 'https://shayuapi.com/api.php/provide/vod',
+        name: '鲨鱼资源',
+    },                                              // :contentReference[oaicite:1]{index=1}
+    tiankong: {
+        api: 'https://api.tiankongapi.com/api.php/provide/vod',
+        name: '天空资源',
+    },                                              // :contentReference[oaicite:2]{index=2}
+    kuaibo: {
+        api: 'http://www.kuaibozy.com/api.php/provide/vod',
+        name: '快播资源',
+    },                                              // :contentReference[oaicite:3]{index=3}
+    bajie: {
+        api: 'http://cj.bajiecaiji.com/inc/api.php',
+        name: '八戒资源',
+    },                                              // :contentReference[oaicite:4]{index=4}
+    lehootv: {
+        api: 'https://lehootv.com/api.php/provide/vod',
+        name: '乐活影视',
+    },                                              // :contentReference[oaicite:5]{index=5}
+    malimali: {
+        api: 'https://malimali3.com/api.php/provide/vod',
+        name: '嘛哩嘛哩',
+    },                                              // :contentReference[oaicite:6]{index=6}
+    duanyou: {
+        api: 'http://shangjihuoke.com/api.php/provide/vod',
+        name: '段友影视',
+    },                                              // :contentReference[oaicite:7]{index=7}
+    rrzy: {
+        api: 'https://www.rrzyw.cc/api.php/provide/vod',
+        name: '人人资源',
+    },                                              // :contentReference[oaicite:8]{index=8}
+    m3u8tv: {
+        api: 'http://www.zycaiji.net:7788/api.php/provide/vod',
+        name: 'M3U8.TV 资源',
+    },                                              // :contentReference[oaicite:9]{index=9}
+    yidian: {
+        api: 'https://m3u8.movurl.xyz/api.php/provide/vod',
+        name: '一点影视',
+    },                                              // :contentReference[oaicite:10]{index=10}
+    qilin: {
+        api: 'http://www.qilinzyz.com/api.php/provide/vod',
+        name: '麒麟资源',
+    },                                              // :contentReference[oaicite:11]{index=11}
+    judashen: {
+        api: 'http://judashen.com/api.php/provide/vod',
+        name: '剧大神',
+    },                                              // :contentReference[oaicite:12]{index=12}
+    wuzy9: {
+        api: 'https://wuzy9.com/api.php/provide/vod',
+        name: '无尽资源 (备用域名)',
+    },                                              // :contentReference[oaicite:13]{index=13}
+    sugeng: {
+        api: 'https://sugengzy.cn/api.php/provide/vod',
+        name: '速更资源',
+    },                                              // :contentReference[oaicite:14]{index=14}
+
+
+
+    // testSource: {
+    //     api: 'https://www.example.com/api.php/provide/vod',
+    //     name: '空内容测试源',
+    //     adult: true
+    // },
+
     // ckzy: {
     //     api: 'https://www.ckzy1.com',
     //     name: 'CK资源',
@@ -166,18 +224,18 @@ const API_SITES = {
     // },
 
     // 下面是资源失效率高的API源，不建议使用
-    // subo: {
-    //     api: 'https://subocaiji.com/api.php/provide/vod',
-    //     name: '速播资源'
-    // },
-    // fczy: {
-    //     api: 'https://api.fczy888.me/api.php/provide/vod',
-    //     name: '蜂巢资源'
-    // },
-    // ukzy: {
-    //     api: 'https://api.ukuapi88.com/api.php/provide/vod',
-    //     name: 'U酷资源'
-    // },
+    subo: {
+        api: 'https://subocaiji.com/api.php/provide/vod',
+        name: '速播资源'
+    },
+    fczy: {
+        api: 'https://api.fczy888.me/api.php/provide/vod',
+        name: '蜂巢资源'
+    },
+    ukzy: {
+        api: 'https://api.ukuapi88.com/api.php/provide/vod',
+        name: 'U酷资源'
+    }
 };
 
 // 添加聚合搜索的配置选项
