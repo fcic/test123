@@ -711,6 +711,15 @@ async function loadSinglePoster(img) {
         console.error(`Error loading poster for ${title}:`, e);
     }
 }
+            
+            fragment.appendChild(card);
+        });
+    }
+    
+    // 清空并添加所有新元素
+    container.innerHTML = "";
+    container.appendChild(fragment);
+}
 
 // 重置到首页
 function resetToHome() {
